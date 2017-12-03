@@ -1,5 +1,7 @@
 # Web-сервис для рекомендации книг   
 
+![Внешний вид](./www/00_page.png)
+
 ### Используемые инструменты:
 
 - [OS Linux Mint](https://linuxmint.com/) v 18 "Sarah" - Cinnamon (64-bit)
