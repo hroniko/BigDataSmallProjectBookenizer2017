@@ -132,7 +132,12 @@ object Main {
 
 
           if (userBookTop5.count() > 0){
-            producer.send(new ProducerRecord[String,String](TOPIC_OUT ,"Key", userBookTop5.reduce((x, y) => x + "~" + y).toString))
+            if (userBookTop5.count() == 1){
+              producer.send(new ProducerRecord[String,String](TOPIC_OUT ,"Key", userBookTop5.reduce((x, y) => x + "~" + x).toString))
+            } else{
+              producer.send(new ProducerRecord[String,String](TOPIC_OUT ,"Key", userBookTop5.reduce((x, y) => x + "~" + y).toString))
+            }
+
           } /* else {
             producer.send(new ProducerRecord[String,String](TOPIC_OUT ,"Key", userBookTop5.count().toString))
           }

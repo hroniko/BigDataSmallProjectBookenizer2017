@@ -5,19 +5,21 @@
  */
 package com.bigdata.bookenizer.controller;
 
+import com.bigdata.bookenizer.controller.ajax.AjaxBook;
 import com.bigdata.bookenizer.model.User;
 import com.bigdata.bookenizer.model.entity.*;
 import com.bigdata.bookenizer.services.*;
+import com.bigdata.bookenizer.utils.kafka.MessageStorage;
+import com.bigdata.bookenizer.utils.kafka.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -42,6 +44,12 @@ public class TestControler {
 
 	@Autowired
 	private RecomendationsEntityDao recomendationsEntityDao;
+
+	@Autowired
+	private Producer producer;
+
+	@Autowired
+	private MessageStorage storage;
 
 	@RequestMapping("/login")
 	public String getLogin(@RequestParam(value = "error", required = false) String error,
@@ -233,5 +241,8 @@ public class TestControler {
 		return books;
 
 	}
+
+
+
 
 }

@@ -47,6 +47,8 @@
 
 
 
+
+
 </head>
 
 <body>
@@ -104,7 +106,9 @@
                         <p>Добавьте новую книгу в свой профиль</p>
                         <div class="panel-body">
 
-                            <form class="form" method="post" action="/addBook">
+                            <!--  <form class="form" id="add_persons" method="post" action="/addBook"onsubmit="addRow();return false;"> -->
+                            <form class="form" id="add_persons" method="post" action=""onsubmit="addRow();return false;">
+
                                 <fieldset>
 
 
@@ -127,7 +131,7 @@
 
 
                                     <div class="form-group">
-                                        <input class="btn btn-lg btn-primary btn-block" id="addBook" value="Добавить" type="submit">
+                                        <input class="btn btn-lg btn-primary btn-block" id="addBook" value="Добавить" type="submit" > <!-- data-dismiss="modal" -->
                                     </div>
                                 </fieldset>
                             </form>

@@ -44,8 +44,81 @@
         <%@include file="/pages/static/js/validator.min.js"%>
     </script>
 
+    <script type="text/javascript">
+        var d = document;
+
+        var name;
+        var initials;
+        var posada;
+
+        function addRow()
+        {
+
+            // Считываем значения с формы
+            name = d.getElementById('nameBook').value;
+            // d.getElementById('nameBook').value = "";
+
+            author = d.getElementById('authorBook').value;
+            // d.getElementById('authorBook').value = "";
 
 
+            doAjaxSendMessage();
+
+
+            // Находим нужную таблицу
+            var tbody = d.getElementById('tab1').getElementsByTagName('TBODY')[0];
+
+            // Создаем строку таблицы и добавляем ее
+            var row = d.createElement("TR");
+            tbody.appendChild(row);
+
+            // Создаем ячейки в вышесозданной строке
+            // и добавляем тх
+            var td1 = d.createElement("TD");
+            var td2 = d.createElement("TD");
+            var td3 = d.createElement("TD");
+
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+
+            // Наполняем ячейки
+            td1.innerHTML = name;
+            td2.innerHTML = author;
+            td3.innerHTML = "<button type=\"submit\" class='btn btn-info btn-xs pull-right' > <span class=\"glyphicon glyphicon-glyphicon glyphicon-remove\"></span> Удалить</button>";
+        }
+
+        function doAjaxSendMessage() {
+
+            name = d.getElementById('nameBook').value;
+            d.getElementById('nameBook').value = "";
+
+            author = d.getElementById('authorBook').value;
+            d.getElementById('authorBook').value = "";
+
+
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/sendBook',
+                method: 'POST',
+                traditional: true,
+                data: {
+                    id: '${user.getId()}',
+                    name: name,
+                    author: author
+                },
+                success: function(data) {
+                    if (data == "FAIL") {
+                        alert("File not found!");
+                    }
+                },
+                error: function(request, status, error) {
+                    alert("The request failed: " + request.responseText);
+                }
+            });
+        }
+
+    </script>
 
 
 
@@ -56,17 +129,19 @@
 <div class="resume">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-            <header class="page-header">
-                <h1 class="page-title">Мой профиль</h1>
-
-            </header>
+            <div class="col-md-12 text-center">
+                <header class="page-header">
+                    <h1 class="page-title">Мой профиль</h1>
+                </header>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading resume-heading">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="col-xs-12 col-sm-4">
+
                                 <figure>
-                                    <img class="img-circle img-responsive" alt="" src="/img/avatar.jpg">
+                                    <img class="img-circle img-responsive center-block" alt="" src="/img/avatar.jpg">
                                 </figure>
 
                             </div>
@@ -84,7 +159,7 @@
                         <div class="container">
                             <div class="row col-md-6 col-md-offset-2 custyle">
                                 <h3>Мои книги:</h3>
-                                    <table class="table table-striped custab">
+                                    <table id="tab1" class="table table-striped custab">
                                         <tr>
                                             <td>Название:</td>
                                             <td>Автор:</td>
@@ -103,8 +178,6 @@
                                         </c:forEach>
 
                                     </table>
-
-
 
                         </div>
                     </div>

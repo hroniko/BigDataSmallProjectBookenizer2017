@@ -1,6 +1,7 @@
 package com.bigdata.bookenizer.utils.schedule;
 
 import com.bigdata.bookenizer.utils.kafka.Consumer;
+import com.bigdata.bookenizer.utils.kafka.MessageStorage;
 import org.junit.ClassRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
@@ -16,16 +17,19 @@ public class KafkaLoadFromSparkScheduler {
     private Consumer consumer;
 
     @ClassRule
-    public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true,"testtopic" );
+    public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true,"spring" );
+
+    @Autowired
+    private MessageStorage storage;
 
     @Scheduled(fixedRate = 10000) // интервал между запусками 10 секунд
     public void scheduleTaskWithFixedRate() {
-         // System.out.println("Хоп! Сработал планировщик!");
-         // String msg = consumer.receive();
-         // System.out.println(msg);
+        System.out.println("Хоп! Сработал планировщик!");
+        String messages = storage.toString();
+        storage.clear(); // и надо очистить хранилище
 
-        // и надо очистить топик:
-        // consumer.clear();
+        System.out.println(messages);
+
 
         // И еще логику написать для переноса рекомендаций в бд
     }

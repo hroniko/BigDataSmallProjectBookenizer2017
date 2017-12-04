@@ -25,10 +25,13 @@
 
 <div class="container" style="margin-top:30px">
 
+
     <div class="col-md-4 col-md-offset-4">
-        <header class="page-header">
-            <h1 class="page-title">Авторизация</h1>
-        </header>
+        <div class="col-md-12 text-center">
+            <header class="page-header">
+                <h1 class="page-title">Авторизация</h1>
+            </header>
+        </div>
         <div class="panel panel-default well" >
 
             <div class="panel-body ">
@@ -42,7 +45,10 @@
                         <input name="password"  type="password" class="form-control" style="border-radius:0px" id="password" placeholder="Password">
                     </div>
                     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-                    <button type="submit" class="btn btn-sm btn-default">Войти</button>
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-sm btn-default">Войти</button>
+                    </div>
+
                 </form>
             </div>
             <div class="bottom text-center">

@@ -55,9 +55,11 @@
 <div class="resume">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-            <header class="page-header">
-                <h1 class="page-title">Мои рекомендации</h1>
-            </header>
+            <div class="col-md-12 text-center">
+                <header class="page-header">
+                    <h1 class="page-title">Мои рекомендации</h1>
+                </header>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading resume-heading">
                     <div class="row">

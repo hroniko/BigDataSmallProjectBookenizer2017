@@ -1,62 +1,97 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<<div class="container">
-<header class="page-header">
-    <h1 class="page-title">Registration</h1>
-</header>
-<div class=" well">
-    <div class="row">
-        <form method="post" action="/registration_sumbit" class="login" >
-            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                <div class="row">
-                <div class="col-sm-6 form-group">
-                    <label>Login</label>
-                    <input name="login" type="text" placeholder="Login..." class="form-control">
-                </div>
-                <div class="col-sm-6 form-group">
-                    <label>Passwor</label>
-                    <input name="password" type="text" placeholder="Password..." class="form-control">
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 form-group">
-                        <label>First Name</label>
-                        <input name="firstName" type="text" placeholder="Enter First Name Here.." class="form-control">
+<%--
+  Created by IntelliJ IDEA.
+  User: hroniko
+  Date: 04.12.17
+  Time: 3:01
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page language="java" contentType="text/html; charset=utf8"
+         pageEncoding="utf8" %>
+
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<html>
+<head>
+    <title>Регистрация</title>
+
+    <%@include file='headerGuest.jsp'%>
+
+</head>
+<body>
+
+
+<div class="container" style="margin-top:30px">
+
+    <div class=" well">
+        <div class="col-md-12 text-center">
+            <header class="page-header">
+                <h1 class="page-title">Регистрация</h1>
+            </header>
+        </div>
+
+        <div class="row">
+            <form method="post" action="/registration_sumbit" class="login" >
+                <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Логин</label>
+                            <input name="login" type="text" placeholder="Логин..." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Пароль</label>
+                            <input name="password" type="text" placeholder="Пароль..." class="form-control">
+                        </div>
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Last Name</label>
-                        <input name="lastName" type="text" placeholder="Enter Last Name Here.." class="form-control">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Фамилия</label>
+                            <input name="firstName" type="text" placeholder="Фамилия.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Имя</label>
+                            <input name="lastName" type="text" placeholder="Имя.." class="form-control">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 form-group">
-                        <label>Age</label>
-                        <input  name="age" type="text" placeholder="Enter City Name Here.." class="form-control">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Возраст</label>
+                            <input  name="age" type="text" placeholder="Возраст.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Email </label>
+                            <input name="email" type="text" placeholder="Почта.." class="form-control">
+                        </div>
+
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Email </label>
-                        <input name="email" type="text" placeholder="Enter Email Address Here.." class="form-control">
+
+                    <div class="form-group">
+                        <label>Страна</label>
+                        <select name="country" class="form-control">
+                            <option>Россия</option>
+                            <option>США</option>
+                            <option>Германия</option>
+                            <option>Франция</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-sm btn-info">Отправить</button>
                     </div>
 
                 </div>
-
-                <div class="form-group">
-                    <label>Country</label>
-                    <select name="country" class="form-control">
-                        <option>Russian Federation</option>
-                        <option>USA</option>
-                        <option>Germany</option>
-                        <option>France</option>
-                    </select>
-                </div>
-
-                <button type="submit"  class="btn btn-lg btn-info">Submit</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-</div>
+
+
+
+
+
+<%@include file='footer.jsp'%>
+
+</body>
+</html>
+
