@@ -45,4 +45,12 @@ public class UsertagsEntity {
 
         return Objects.hash(iduser, idbook);
     }
+
+    public UsertagsEntity() {
+    }
+
+    public UsertagsEntity(Long iduser, Long idbook) {
+        this.iduser = iduser;
+        this.idbook = idbook;
+    }
 }

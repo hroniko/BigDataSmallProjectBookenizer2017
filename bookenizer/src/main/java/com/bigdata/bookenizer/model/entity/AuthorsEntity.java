@@ -43,4 +43,14 @@ public class AuthorsEntity {
 
         return Objects.hash(id, fio);
     }
+
+    public AuthorsEntity() {
+    }
+
+    public AuthorsEntity(long id, String fio) {
+        this.id = id;
+        this.fio = fio;
+    }
+
+
 }

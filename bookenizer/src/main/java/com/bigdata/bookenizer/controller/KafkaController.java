@@ -49,20 +49,5 @@ public class KafkaController {
         return messages;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/sendBook", method = RequestMethod.POST)
-    public void sendBook(HttpSession session,
-                         @RequestParam(value = "id") Integer id,
-                         @RequestParam(value = "name") String name,
-                         @RequestParam(value = "author") String author)
-    {
-        System.out.println("Пользователь " + id + " добавил книгу: " + name + " : " + author);
 
-        // Надо попробовать положить ее в базу, затем кинуть в кафку айди этого юзера:
-        producer.send("spring", "id", id.toString());
-        producer.send("spring", "id", "1"); // Вот тут попытка, просто левые данные для проверки
-        //producer.send("spring", "id", "2"); // Просто так, а то данных нет в бд
-        //producer.send("spring", "id", "5");
-
-    }
 }

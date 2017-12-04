@@ -44,4 +44,12 @@ public class RecomendationsEntity {
 
         return Objects.hash(iduser, idbook);
     }
+
+    public RecomendationsEntity() {
+    }
+
+    public RecomendationsEntity(Long iduser, Long idbook) {
+        this.iduser = iduser;
+        this.idbook = idbook;
+    }
 }

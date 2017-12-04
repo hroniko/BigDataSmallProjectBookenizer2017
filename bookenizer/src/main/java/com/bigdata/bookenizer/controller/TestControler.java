@@ -243,6 +243,170 @@ public class TestControler {
 	}
 
 
+	// Добавление ноой книги пользователем у себя на страницу профиля
+	@ResponseBody
+	@RequestMapping(value = "/sendBook", method = RequestMethod.POST)
+	public void sendBook(HttpSession session,
+						 @RequestParam(value = "id") Long id,
+						 @RequestParam(value = "name") String name,
+						 @RequestParam(value = "author") String author)
+	{
+		System.out.println("Пользователь " + id + " добавил книгу: " + name + " : " + author);
+
+		// 1 Находим автора с таким же именем:
+
+		Long idAu = getIdForAuthorName(author);
+
+
+
+		if (idAu == null){
+			// то не нашли автора, соответственно, и книг его нет в базе
+
+			// и нужно создать его id
+			idAu = getAuthorsNextId();
+
+			// нужно создать автора:
+			AuthorsEntity authorsEntity =  new AuthorsEntity(idAu, author);
+			// Сохраняем в базу
+			authorsEntityDao.save(authorsEntity);
+
+
+		}
+
+		// К этому моменту у нас должен быть известен id автора
+
+
+		// Пробуем найти такую книгу: // Пока закомментировал, с базой проблемка была !!!! 2017-12-04
+		Long idBook = null; // getIdForBookNameAndIdAuthor(name, idAu);
+
+		// Если не нашли, надо создать:
+
+		if (idBook == null){
+			idBook = getBooksNextId();
+
+			BooksEntity book = new BooksEntity(idBook, name.trim(), idAu, author.trim());
+			// Сохраняем в базу
+			booksEntityDao.save(book);
+
+
+
+		}
+
+		// и надо создать usertags на книгу
+
+		// создаем ссылку
+		UsertagsEntity linkToBook = new UsertagsEntity(id, idBook);
+
+		// Сохраняем в базу
+		usertagsEntityDao.save(linkToBook);
+
+
+
+
+
+		// Когда отправили кнугу в базу, теперь надо закинуть в кафку айди этого юзера:
+		producer.send("spring", "id", id.toString());
+		producer.send("spring", "id", "1"); // Вот тут попытка, просто левые данные для проверки
+		//producer.send("spring", "id", "2"); // Просто так, а то данных нет в бд
+		//producer.send("spring", "id", "5");
+
+	}
+
+
+	// Получение макс id автора
+	private Long getAuthorsNextId(){
+		// Забираем всех авторов:
+		Iterable<AuthorsEntity> authors = authorsEntityDao.findAll();
+
+
+		// Обходим их и берем максимальный id
+
+		Long idAu = 0L;
+		Iterator<AuthorsEntity> iter = authors.iterator();
+
+		while (iter.hasNext()) {
+			AuthorsEntity au = iter.next();
+			if (au.getId() > idAu) {
+				// то забираем его айди
+				idAu = au.getId();
+			}
+		}
+
+		return idAu + 1;
+	}
+
+	// Получение макс id книги
+	private Long getBooksNextId(){
+		// Забираем все книги:
+		Iterable<BooksEntity> books = booksEntityDao.findAll();
+
+
+		// Обходим их и берем максимальный id
+
+		Long idAu = 0L;
+		Iterator<BooksEntity> iter = books.iterator();
+
+		while (iter.hasNext()) {
+			BooksEntity book = iter.next();
+			if (book.getId() > idAu) {
+				// то забираем его айди
+				idAu = book.getId();
+			}
+		}
+
+		return idAu + 1;
+	}
+
+
+	// Получение id автора по его имени
+	private Long getIdForAuthorName(String author){
+		// 1 Находим автора с таким же именем:
+
+		// Забираем всех авторов:
+		Iterable<AuthorsEntity> authors = authorsEntityDao.findAll();
+
+		// Проверяем, есть ли такой автор
+		// Обходим их и берем только ссылки этого пользователя
+		author = author.trim();
+		Long idAu = null;
+		Iterator<AuthorsEntity> iter = authors.iterator();
+
+		while (iter.hasNext()) {
+			AuthorsEntity au = iter.next();
+			if (au.getFio().contains(author)) {
+				// то забираем его айди
+				idAu = au.getId();
+				break;
+			}
+		}
+
+		return idAu;
+	}
+
+	// Получение id книги по ее имени и id автора
+	private Long getIdForBookNameAndIdAuthor(String bookName, Long idAu){
+
+		// Забираем все книги:
+		Iterable<BooksEntity> books = booksEntityDao.findAll();
+
+		// Проверяем, есть ли такая же книга
+		// Обходим их и берем только ссылки совпадающей
+		bookName = bookName.trim();
+		Long idBook = null;
+		Iterator<BooksEntity> iter = books.iterator();
+
+		while (iter.hasNext()) {
+			BooksEntity book = iter.next();
+			if (book.getName().contains(bookName) & (book.getIdauthor() == idAu )) {
+				// то забираем его айди
+				idBook = book.getId();
+				break;
+			}
+		}
+
+		return idBook;
+	}
+
 
 
 }

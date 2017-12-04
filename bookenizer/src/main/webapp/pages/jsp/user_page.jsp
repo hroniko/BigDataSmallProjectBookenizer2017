@@ -28,6 +28,7 @@
         <%@include file="/pages/static/css/vis.min.css"%>
         <%@include file="/pages/static/css/tlmain.css"%>
         <%@include file="/pages/static/css/jquery.mCustomScrollbar.min.css"%>
+        <%@include file="/pages/static/css/style-modal.css"%>
     </style>
 
 
@@ -83,9 +84,9 @@
             row.appendChild(td3);
 
             // Наполняем ячейки
-            td1.innerHTML = name;
+            td1.innerHTML = '"' + name + '"';
             td2.innerHTML = author;
-            td3.innerHTML = "<button type=\"submit\" class='btn btn-info btn-xs pull-right' > <span class=\"glyphicon glyphicon-glyphicon glyphicon-remove\"></span> Удалить</button>";
+            td3.innerHTML = "<a href=\"#win1\"  role=\"button\"   class='btn btn-info btn-xs pull-right' > <span class=\"glyphicon glyphicon-glyphicon glyphicon-remove\"></span> Удалить</a>";
         }
 
         function doAjaxSendMessage() {
@@ -171,15 +172,30 @@
                                             <tr>
                                                 <td>"${book.name}"</td>
                                                 <td>${book.author}</td>
-                                                <form  method="post" class="form-control">
-                                                    <td class="text-center"><button type="submit" class='btn btn-info btn-xs pull-right' > <span class="glyphicon glyphicon-glyphicon glyphicon-remove"></span> Удалить</button>
-                                                </form>
+                                                <td><a href="#win1"  role="button"   class='btn btn-info btn-xs pull-right' > <span class="glyphicon glyphicon-glyphicon glyphicon-remove"></span> Удалить</a></td>
+
                                             </tr>
                                         </c:forEach>
 
                                     </table>
 
-                        </div>
+                                <!-- Модальное окно 1 -->
+                                <a href="#x" class="overlay" id="win1"></a>
+                                <div class="popup">
+                                    <div class="pic-left">
+                                        <a href="/"><img src="/img/prog.jpeg" alt="Это будет фича" /></a>
+                                    </div>
+                                    <h2>Уважаемые друзья!</h2>
+                                    <p>Мы очень старались все успеть, но  <strong>в силу непредвиденных обстоятельств</strong> данная возможность пока не реализована.
+                                    <h3>Не расстаривайтесь!</h3>
+                                    <p>Мы обязательно реализуем функционал удаления книг в следующих версиях нашего продукта!
+                                    <h3>        Спасибо за понимание!</h3>
+                                    <p>         С уважением, команда разработчиков
+                                    <a class="close" title="Закрыть" href="#close"></a>
+                                </div>
+
+
+                            </div>
                     </div>
                 </div>
             </div>

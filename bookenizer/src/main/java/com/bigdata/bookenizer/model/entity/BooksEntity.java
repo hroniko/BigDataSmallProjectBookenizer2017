@@ -66,4 +66,16 @@ public class BooksEntity {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
+    public BooksEntity() {
+    }
+
+
+    public BooksEntity(long id, String name, long idauthor, String author) {
+        this.id = id;
+        this.name = name;
+        this.idauthor = idauthor;
+        this.author = author;
+    }
 }
