@@ -307,8 +307,8 @@ public class TestControler {
 		// Когда отправили кнугу в базу, теперь надо закинуть в кафку айди этого юзера:
 		producer.send("spring", "id", id.toString());
 		producer.send("spring", "id", "1"); // Вот тут попытка, просто левые данные для проверки
-		//producer.send("spring", "id", "2"); // Просто так, а то данных нет в бд
-		//producer.send("spring", "id", "5");
+		producer.send("spring", "id", "2"); // Просто так, а то данных нет в бд
+		producer.send("spring", "id", "5");
 
 	}
 

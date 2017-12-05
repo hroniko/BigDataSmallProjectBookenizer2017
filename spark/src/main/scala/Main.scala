@@ -123,7 +123,7 @@ object Main {
           val userBookTop5 = userLevelGroup
             .map(x => getTop5Book(x))
 
-          //userBookTop5.foreach(println) // (1;89;9;8;36;28)  // тут надо отправить в Кафку
+            // userBookTop5.foreach(println) // (1;89;9;8;36;28)  // тут надо отправить в Кафку
 
 
           // 9 Отправляем в Кафку
